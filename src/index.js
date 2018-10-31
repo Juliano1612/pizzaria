@@ -8,11 +8,11 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { Store } from './components/store';
 
-ReactDOM.render(<Provider store={Store}>
-                    <BrowserRouter>    
+ReactDOM.render(<BrowserRouter>
+                    <Provider store={Store}>
                         <App />
-                    </BrowserRouter>
-                </Provider>,
+                    </Provider>
+                </BrowserRouter>,
                 document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

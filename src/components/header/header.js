@@ -1,11 +1,12 @@
 import React from "react";
-import { Navbar, NavItem, Row } from 'react-materialize';
+import { Navbar, Row } from 'react-materialize';
+import { NavLink } from 'react-router-dom'
 
 const Header = () => (
     <Row>
         <Navbar className="red darken-2">
-            <NavItem href='/'>Novo Pedido</NavItem>
-            <NavItem href='/customize_order'>Customizar Pedido</NavItem>
+            <li><NavLink to="/">Novo Pedido</NavLink></li>
+            <li><NavLink to="/customize_order">Customizar Pedido</NavLink></li>
         </Navbar>
     </Row>
 );

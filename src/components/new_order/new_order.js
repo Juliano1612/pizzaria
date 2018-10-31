@@ -2,12 +2,9 @@ import React from "react";
 import { Row,
     Col, 
     Card, 
-    Collapsible, 
-    CollapsibleItem,
     Button,
     Icon
 } from 'react-materialize';
-import $ from 'jquery'; 
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -68,22 +65,17 @@ class NewOrder extends React.Component {
         })
     }
 
-    expandAll() {
-        $(".collapsible-header").addClass("active");
-    }
-
-    componentDidMount(){
-        this.expandAll()
-    }
-
     render(){
         const { sizes, flavours, selectedFlavour, selectedSize } = this.state; 
         const { order, selectOrder } = this.props
         return (
             <Row>
                 <Col m={8} s={12}>
-                    <Collapsible popout>
-                        <CollapsibleItem header='Tamanho' icon='straighten'>
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <div class="collapsible-header active">
+                            <i class="material-icons">straighten</i>Tamanho
+                        </div>
+                        <div class="collapsible-body" style={{ display: "block" }}>
                             <Row>
                                 {sizes.map(s => {
                                     return (
@@ -107,8 +99,11 @@ class NewOrder extends React.Component {
                                     )
                                 })}
                             </Row>
-                        </CollapsibleItem>
-                        <CollapsibleItem header='Sabor' icon='local_pizza'>
+                        </div>
+                        <div class="collapsible-header active">
+                            <i class="material-icons">local_pizza</i>Sabor
+                        </div>
+                        <div class="collapsible-body" style={{ display: "block" }}>
                             <Row>
                                 {flavours.map(f => {
                                     return (
@@ -134,8 +129,8 @@ class NewOrder extends React.Component {
                                     )
                                 })}
                             </Row>
-                        </CollapsibleItem>
-                    </Collapsible>
+                        </div>
+                    </ul>
                     {Object.keys(order.size).length !== 0 && Object.keys(order.flavour).length !== 0 ? 
                         <Button waves='light'
                             className='red'
