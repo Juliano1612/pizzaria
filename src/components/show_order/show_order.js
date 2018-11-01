@@ -64,7 +64,6 @@ class ShowOrder extends React.Component {
 
     render() {
         const { order, selectOrder } = this.props
-        const parcialTime = Number(order.size.price) + Number(order.flavour.additionalTime)
 
         return (
             <div>
@@ -75,30 +74,29 @@ class ShowOrder extends React.Component {
                             <Col m={12} s={12} >
                                 <Card  className='white darken-1' textClassName='black-text' title={<b>Resumo do pedido</b>} actions={[
                                         <div key={'action'}>
-                                            <Icon tiny>attach_money</Icon> Valor Final: R$ {order.value}
+                                            <Icon tiny>attach_money</Icon> Valor Final:   {order.value !== undefined ? order.value.toFixed(2) : 0}
                                             <br />
-                                            <Icon tiny>timer</Icon> Tempo Final: {order.time} minutos
+                                            <Icon tiny>timer</Icon> Tempo de preparo: {order.time} minutos
                                         </div>]}>
                                     <div className="card-action">
                                         <Icon tiny>straighten</Icon> Tamanho: {order.size.label}
                                         <br/>
                                         <Icon tiny>local_pizza</Icon> Sabor: {order.flavour.label}
                                         <br />
-                                        <Icon tiny>attach_money</Icon> Valor: R$ {order.size.price}
-                                        <br/>
-                                        <Icon tiny>timer</Icon> Tempo: {parcialTime} minutos
+                                        <Icon tiny>attach_money</Icon> Valor:   {order.size.price !== undefined ? order.size.price.toFixed(2) : 0}
                                     </div>
-                                    <div className="card-action">
-                                        <b>Adicionais</b>
-                                        {order.additionals.map((add, index) => {
-                                            return (
-                                                <div key={index}>
-                                                    <br />
-                                                    <Icon key={index} tiny>add</Icon> {add.label}: Valor adicional: R$ {add.additionalValue} - Tempo adicional: {add.additionalTime} minutos
-                                                </div>
-                                            )
-                                        })}
-                                    </div>                                
+                                    {order.additionals.length !== 0? 
+                                        <div className="card-action">
+                                            <b>Adicionais</b>
+                                            {order.additionals.map((add, index) => {
+                                                return (
+                                                    <div key={index}>
+                                                        {add.label}: <Icon key={index} tiny>add</Icon><Icon key={`1${index}`} tiny>attach_money</Icon> {add.additionalValue.toFixed(2)}
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>                                
+                                    :null}
                                 </Card>
                             </Col>
                         </Row>

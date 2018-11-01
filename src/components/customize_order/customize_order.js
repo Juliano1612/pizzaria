@@ -88,7 +88,7 @@ class CustomizeOrder extends React.Component {
                                                 onClick={() => {
                                                     this.pushAdditional(a);
                                                 }}>
-                                                Escolher
+                                                Adicionar
                                             </Button>:
                                             <Button key={a.value}
                                                 waves='light'
@@ -101,7 +101,7 @@ class CustomizeOrder extends React.Component {
                                         return (
                                             <Col m={4} s={12} key={a.value} >
                                                 <Card key={a.value} className='white darken-1' textClassName='black-text' title={a.label} actions={[button]}>
-                                                    + <Icon tiny>attach_money</Icon> {a.additionalValue}
+                                                    + <Icon tiny>attach_money</Icon> {a.additionalValue.toFixed(2)}
                                                     <br />
                                                     + <Icon tiny>timer</Icon> {a.additionalTime} minutos
                                                     </Card>

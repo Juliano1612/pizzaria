@@ -54,12 +54,20 @@ class NewOrder extends React.Component {
                             <div className="collapsible-body" style={{ display: "block" }}>
                                 <Row>
                                     {sizes.map(s => {
+                                        let buttonColor, buttonLabel;
+                                        if (Object.keys(selectedSize).length !== 0 && selectedSize.value === s.value) {
+                                            buttonColor = 'green';
+                                            buttonLabel = 'Selecionado'
+                                        } else {
+                                            buttonColor = 'red';
+                                            buttonLabel = 'Selecionar'
+                                        }
                                         return (
                                             <Col m={4} s={12} key={s.value} >
                                                 <Card key={s.value} className='white darken-1' textClassName='black-text' title={s.label} actions={[
                                                     <Button key={s.value} 
                                                             waves='light' 
-                                                            className='red'
+                                                            className={buttonColor}
                                                             onClick={() => {
                                                                 selectOrder({
                                                                         size: sizes[s.value], 
@@ -68,9 +76,9 @@ class NewOrder extends React.Component {
                                                                         time: Object.keys(selectedFlavour).length !== 0 ? Number(selectedFlavour.additionalTime) + Number(s.time) : Number(s.time),
                                                                         value: s.price}); 
                                                                     this.changeSelection(s.value, 'selectedSize', s)} }>
-                                                            Escolher
+                                                            {buttonLabel}
                                                     </Button>]}>
-                                                    <Icon tiny>attach_money</Icon> {s.price}
+                                                    <Icon tiny>attach_money</Icon> {s.price.toFixed(2)}
                                                     <br/><Icon tiny>timer</Icon> {s.time} minutos
                                                 </Card>
                                             </Col>
@@ -78,37 +86,49 @@ class NewOrder extends React.Component {
                                     })}
                                 </Row>
                             </div>
-                            <div className="collapsible-header active">
-                                <i className="material-icons">local_pizza</i>Sabor
-                            </div>
-                            <div className="collapsible-body" style={{ display: "block" }}>
-                                <Row>
-                                    {flavours.map(f => {
-                                        return (
-                                            <Col m={4} s={12} key={f.value} >
-                                                <Card key={f.value} className='white darken-1' textClassName='black-text' title={f.label} actions={[
-                                                    <Button key={f.value}
-                                                        waves='light'
-                                                        className='red'
-                                                        onClick={() => {
-                                                            selectOrder({
-                                                                size: selectedSize,
-                                                                flavour: flavours[f.value],
-                                                                additionals: [],
-                                                                time: Object.keys(selectedSize).length !== 0 ? Number(f.additionalTime) + Number(selectedSize.time) : Number(f.additionalTime),
-                                                                value: selectedSize.price
-                                                            });
-                                                            this.changeSelection(f.value, 'selectedFlavour', f)
-                                                        }}>
-                                                        Escolher
-                                                    </Button>]}>
-                                                    + <Icon tiny>timer</Icon> {f.additionalTime === 0 ? "Sem adicional de tempo" : `${f.additionalTime} minutos`}  
-                                                </Card>
-                                            </Col>
-                                        )
-                                    })}
-                                </Row>
-                            </div>
+                            {Object.keys(selectedSize).length !== 0 ? 
+                                <div>
+                                    <div className="collapsible-header active">
+                                        <i className="material-icons">local_pizza</i>Sabor
+                                    </div>
+                                    <div className="collapsible-body" style={{ display: "block" }}>
+                                        <Row>
+                                            {flavours.map(f => {
+                                                let buttonColor, buttonLabel;
+                                                if(Object.keys(selectedFlavour).length !== 0 && selectedFlavour.value === f.value){
+                                                    buttonColor = 'green';
+                                                    buttonLabel = 'Selecionado'
+                                                }else{
+                                                    buttonColor = 'red';
+                                                    buttonLabel = 'Selecionar'
+                                                }
+                                                return (
+                                                    <Col m={4} s={12} key={f.value} >
+                                                        <Card key={f.value} className='white darken-1' textClassName='black-text' title={f.label} actions={[
+                                                            <Button key={f.value}
+                                                                waves='light'
+                                                                className={buttonColor}
+                                                                onClick={() => {
+                                                                    selectOrder({
+                                                                        size: selectedSize,
+                                                                        flavour: flavours[f.value],
+                                                                        additionals: [],
+                                                                        time: Object.keys(selectedSize).length !== 0 ? Number(f.additionalTime) + Number(selectedSize.time) : Number(f.additionalTime),
+                                                                        value: selectedSize.price
+                                                                    });
+                                                                    this.changeSelection(f.value, 'selectedFlavour', f)
+                                                                }}>
+                                                                {buttonLabel}
+                                                            </Button>]}>
+                                                            + <Icon tiny>timer</Icon> {f.additionalTime === 0 ? "Sem adicional de tempo" : `${f.additionalTime} minutos`}  
+                                                        </Card>
+                                                    </Col>
+                                                )
+                                            })}
+                                        </Row>
+                                    </div>
+                                </div>
+                                :null}
                         </ul>
                         {Object.keys(order.size).length !== 0 && Object.keys(order.flavour).length !== 0 ? 
                             <Button waves='light'
