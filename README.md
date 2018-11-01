@@ -1,6 +1,6 @@
 # Pizzaria #
 
-> Implementação do *Front-End* do ALLK *Monitoring* para o Avenida Center
+> Implementação do *Front-End* para pedidos de uma pizzaria
 
 ## Desenvolvimento ##
 
